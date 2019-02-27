@@ -139,7 +139,7 @@ export default class ModalVideo extends React.Component {
                       src={this.getVideoUrl(this.props, this.props.videoId)}
                       frameBorder='0'
                       allowFullScreen={this.props.allowFullScreen}
-                      allow="fullscreen; autoplay"
+                      allow="fullscreen; autoplay; encrypted-media"
                       tabIndex='-1' />
                   </div>
                 </div>
