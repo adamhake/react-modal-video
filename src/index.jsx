@@ -10,6 +10,7 @@ export default class ModalVideo extends React.Component {
     }
     this.closeModal = this.closeModal.bind(this)
     this.updateFocus = this.updateFocus.bind(this)
+    this.getAllowedAttribute = this.getAllowedAttribute.bind(this);
   }
 
   openModal () {
@@ -104,6 +105,12 @@ export default class ModalVideo extends React.Component {
     return padding + '%'
   }
 
+  getAllowedAttribute () {
+    const fullscreen = this.props.allowFullScreen ? 'fullscreen' : '';
+    const autoplay = this.props[this.props.channel].autoplay ? 'autoplay': '';
+    return [fullsreen, autoplay].join('; ');
+  }
+
   render() {
     const style = {
       paddingBottom: this.getPadding(this.props.ratio)
@@ -126,7 +133,14 @@ export default class ModalVideo extends React.Component {
                 <div className={this.props.classNames.modalVideoInner}>
                   <div className={this.props.classNames.modalVideoIframeWrap} style={style}>
                     <button className={this.props.classNames.modalVideoCloseBtn} aria-label={this.props.aria.dismissBtnMessage} ref={node => { this.modalbtn = node; }} onKeyDown={this.updateFocus} />
-                    <iframe width='460' height='230' src={this.getVideoUrl(this.props, this.props.videoId)} frameBorder='0' allowFullScreen={this.props.allowFullScreen} tabIndex='-1' />
+                    <iframe
+                      width='460'
+                      height='230'
+                      src={this.getVideoUrl(this.props, this.props.videoId)}
+                      frameBorder='0'
+                      allowFullScreen={this.props.allowFullScreen}
+                      allow={this.getAllowedAttribute()}
+                      tabIndex='-1' />
                   </div>
                 </div>
               </div>
@@ -142,6 +156,7 @@ ModalVideo.defaultProps = {
   isOpen: false,
   youtube: {
     autoplay: 1,
+    cc_lang_pref: null,
     cc_load_policy: 1,
     color: null,
     controls: 1,
